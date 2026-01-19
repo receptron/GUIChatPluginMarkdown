@@ -1,5 +1,7 @@
 # @gui-chat-plugin/markdown
 
+[![npm version](https://badge.fury.io/js/%40gui-chat-plugin%2Fmarkdown.svg)](https://www.npmjs.com/package/@gui-chat-plugin/markdown)
+
 Markdown document display plugin for GUI Chat applications. Create and display rich documents with markdown formatting and embedded images.
 
 ## Features
@@ -90,6 +92,14 @@ yarn build
 # Lint
 yarn lint
 ```
+
+## Test Prompts
+
+Try these prompts to test the plugin:
+
+1. "Create a markdown document explaining the basics of machine learning"
+2. "Write a getting started guide for Git in markdown format"
+3. "Generate a project documentation template in markdown"
 
 ## License
 
