@@ -30,7 +30,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "gui-chat-protocol": "^0.0.1",
+    "gui-chat-protocol": "^0.0.3",
     "marked": "^17.0.1"
   },
   "devDependencies": {
