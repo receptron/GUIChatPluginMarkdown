@@ -1,6 +1,6 @@
 {
   "name": "@gui-chat-plugin/markdown",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Markdown document display plugin for GUI Chat applications",
   "type": "module",
   "main": "./dist/index.cjs",
