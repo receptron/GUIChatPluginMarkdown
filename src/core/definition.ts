@@ -19,7 +19,7 @@ export const TOOL_DEFINITION = {
       filenameHint: {
         type: "string",
         description:
-          "Short English filename for download (without extension). Use lowercase with hyphens, e.g. 'project-summary'. Required when the title is not in ASCII.",
+          "ALWAYS provide a short English filename for download (without extension). Use lowercase with hyphens, e.g. 'project-summary'.",
       },
     },
     required: ["title", "markdown"],
