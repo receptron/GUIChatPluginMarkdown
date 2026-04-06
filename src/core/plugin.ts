@@ -7,7 +7,7 @@ export const presentDocument = async (
   args: MarkdownArgs,
 ): Promise<MarkdownResult> => {
   let { markdown } = args;
-  const { title } = args;
+  const { title, filenameHint } = args;
 
   // Validate that markdown is provided
   if (!markdown || markdown.trim() === "") {
@@ -76,7 +76,7 @@ export const presentDocument = async (
     return {
       message: `Created markdown document: ${title}`,
       title,
-      data: { markdown },
+      data: { markdown, filenameHint },
       uuid: docUuid,
       instructions:
         "Acknowledge that the document has been created and is displayed to the user.",
@@ -86,7 +86,7 @@ export const presentDocument = async (
   return {
     message: `Created markdown document: ${title}`,
     title,
-    data: { markdown },
+    data: { markdown, filenameHint },
     instructions:
       "Acknowledge that the document has been created and is displayed to the user.",
   };
