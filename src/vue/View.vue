@@ -102,9 +102,12 @@ const downloadMarkdown = () => {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  const filename = props.selectedResult.title
-    ? `${props.selectedResult.title.replace(/[^a-z0-9]/gi, "_").toLowerCase()}.md`
-    : "document.md";
+  const hint = props.selectedResult.data?.filenameHint;
+  const filename = hint
+    ? `${hint.replace(/[/\\:*?"<>|]/g, "_")}.md`
+    : props.selectedResult.title
+      ? `${props.selectedResult.title.replace(/[/\\:*?"<>|]/g, "_")}.md`
+      : "document.md";
   link.download = filename;
   document.body.appendChild(link);
   link.click();
