@@ -988,10 +988,10 @@ graceful-fs@^4.2.4:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
-gui-chat-protocol@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/gui-chat-protocol/-/gui-chat-protocol-1.1.0.tgz#b8d4aebe0e64231fedb9a4aa88641ccf216e77db"
-  integrity sha512-Ej+r7e+cGJ8byc71BaSyDsj9WEfkptaHujdJfagsg6iKtWT8c1fKlhgk6RhRic1kh5VunMYw15DRcdEzSmbpcA==
+gui-chat-protocol@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/gui-chat-protocol/-/gui-chat-protocol-1.2.0.tgz#8bc7f8d4e31a625aff94fa2c79951b5b80c30145"
+  integrity sha512-5qKQCpXOrH5+QlOWujhYpsG469IB6nsSZ9TOoodsBQ+U5aAPGEEUbvmacyOmPsimHvsDLCxP0S/ZNycWEFHOww==
 
 ignore@^5.2.0:
   version "5.3.2"
@@ -1162,10 +1162,10 @@ magic-string@^0.30.17, magic-string@^0.30.21:
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.5.5"
 
-marked@^18.0.6:
-  version "18.0.6"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-18.0.6.tgz#7faf26fd580b9c8daa75984f18db25631fc4ad63"
-  integrity sha512-MrV5puXBfuiy6wl6DLaq3BtIJQAJToAd5zt/ZKhRfGRAuFPALE7/4Y7jnxRQoEgK/pBgurGqLyAuRgZ2xOjr6w==
+marked@^18.0.7:
+  version "18.0.7"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-18.0.7.tgz#6d8d4dd777730263e7e25bedad56a26bb2809232"
+  integrity sha512-iDVQ5ldaiKXn6b2JroX5kgRfmwgqolW7NpaEzTl1k/2Zh1njIEN9yniyLV/mOvWwtsE8OGgkjsCYvijuPk1dtA==
 
 minimatch@^10.2.2, minimatch@^10.2.4:
   version "10.2.5"
