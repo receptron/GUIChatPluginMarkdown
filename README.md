@@ -15,8 +15,11 @@ Markdown document display plugin for GUI Chat applications. Create and display r
 ## Installation
 
 ```bash
-yarn add @gui-chat-plugin/markdown
+yarn add @gui-chat-plugin/markdown gui-chat-protocol
 ```
+
+> `gui-chat-protocol` is a peer dependency — install it alongside the plugin; the host application provides the runtime and this plugin only declares the compatible range.
+
 
 ## Usage
 
