@@ -2,12 +2,16 @@ import type { ToolContext, ToolPluginCore } from "gui-chat-protocol";
 import type { MarkdownArgs, MarkdownToolData, MarkdownResult } from "./types";
 import { TOOL_NAME, TOOL_DEFINITION } from "./definition";
 
+// context is nullable on purpose: hosts that run the plugin without client-side
+// state (MulmoClaude's server bridge) pass an empty or missing context, and
+// reading through it unguarded threw a TypeError instead of returning a result.
 export const presentDocument = async (
-  context: ToolContext,
+  context: ToolContext | null | undefined,
   args: MarkdownArgs,
 ): Promise<MarkdownResult> => {
   let { markdown } = args;
   const { title, filenameHint } = args;
+  const app = context?.app;
 
   // Validate that markdown is provided
   if (!markdown || markdown.trim() === "") {
@@ -19,14 +23,14 @@ export const presentDocument = async (
   const imageRegex = /!\[([^\]]+)\]\(\/?__too_be_replaced_image_path__\)/g;
   const matches = [...markdown.matchAll(imageRegex)];
 
-  if (matches.length > 0 && context.app?.generateImageWithBackend && context.app?.saveImages) {
+  if (matches.length > 0 && app?.generateImageWithBackend && app?.saveImages) {
     // Generate UUID for this document
     const docUuid = crypto.randomUUID();
     const images: Record<string, string> = {};
 
     // Load blank image for aspect ratio reference
-    const blankImageBase64 = context.app.loadBlankImageBase64
-      ? await context.app.loadBlankImageBase64()
+    const blankImageBase64 = app.loadBlankImageBase64
+      ? await app.loadBlankImageBase64()
       : "";
 
     // Generate images for each placeholder in parallel
@@ -35,7 +39,7 @@ export const presentDocument = async (
       const imageId = `image_${i}`;
 
       try {
-        const result = await context.app!.generateImageWithBackend!(
+        const result = await app!.generateImageWithBackend!(
           prompt,
           blankImageBase64 ? [blankImageBase64] : [],
           context,
@@ -54,7 +58,7 @@ export const presentDocument = async (
     // Save images to server and get URLs
     if (Object.keys(images).length > 0) {
       try {
-        const data = await context.app.saveImages({ uuid: docUuid, images });
+        const data = await app.saveImages({ uuid: docUuid, images });
 
         if (data.imageUrls) {
           const imageUrls = data.imageUrls;
