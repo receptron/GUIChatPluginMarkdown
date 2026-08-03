@@ -1,5 +1,10 @@
 import type { ToolContext, ToolPluginCore } from "gui-chat-protocol";
 import type { MarkdownArgs, MarkdownToolData, MarkdownResult } from "./types";
+import {
+  isGeneratedImageResponse,
+  isSaveImagesResponse,
+  readBlankImageBase64,
+} from "./hostResponse";
 import { TOOL_NAME, TOOL_DEFINITION } from "./definition";
 
 // context is nullable on purpose: hosts that run the plugin without client-side
@@ -30,7 +35,7 @@ export const presentDocument = async (
 
     // Load blank image for aspect ratio reference
     const blankImageBase64 = app.loadBlankImageBase64
-      ? await app.loadBlankImageBase64()
+      ? readBlankImageBase64(await app.loadBlankImageBase64())
       : "";
 
     // Generate images for each placeholder in parallel
@@ -45,7 +50,7 @@ export const presentDocument = async (
           context,
         );
 
-        if (result.success && result.imageData) {
+        if (isGeneratedImageResponse(result) && result.success && result.imageData) {
           images[imageId] = `data:image/png;base64,${result.imageData}`;
         }
       } catch (error) {
@@ -60,7 +65,7 @@ export const presentDocument = async (
       try {
         const data = await app.saveImages({ uuid: docUuid, images });
 
-        if (data.imageUrls) {
+        if (isSaveImagesResponse(data) && data.imageUrls) {
           const imageUrls = data.imageUrls;
 
           // Replace placeholders with actual image URLs
