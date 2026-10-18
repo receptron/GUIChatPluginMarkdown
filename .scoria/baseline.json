@@ -1,7 +1,7 @@
 {
   "report": {
     "schemaVersion": 1,
-    "root": "/private/tmp/claude-501/-Users-isamu-ss-llm-lab/05aa564a-1040-4f30-b316-122f241bad1d/scratchpad/repos/markdown",
+    "root": ".",
     "label": "@gui-chat-plugin/markdown",
     "profile": "library",
     "stacks": [
@@ -10,20 +10,20 @@
     ],
     "complete": true,
     "size": {
-      "files": 17,
-      "sloc": 670,
+      "files": 18,
+      "sloc": 679,
       "testSloc": 101
     },
     "dimensions": [
       {
         "dimension": "architecture",
         "status": "experimental",
-        "score": 68,
+        "score": 70,
         "coverage": 1,
         "metrics": [
           {
             "metric": "knip.unused_export_ratio",
-            "value": 0.6471,
+            "value": 0.5556,
             "state": "ok",
             "scale": {
               "good": 0,
@@ -45,14 +45,14 @@
           },
           {
             "metric": "knip.unused_dependencies",
-            "value": 1,
+            "value": 0,
             "state": "ok",
             "scale": {
               "good": 0,
               "bad": 10
             },
             "weight": 0.2,
-            "points": 18
+            "points": 20
           },
           {
             "metric": "circular.cycle_count",
@@ -123,7 +123,7 @@
           },
           {
             "metric": "readme-contract.readme_words",
-            "value": 298,
+            "value": 299,
             "state": "ok",
             "scale": {
               "good": 120,
@@ -163,12 +163,12 @@
       {
         "dimension": "integrity",
         "status": "experimental",
-        "score": 86.4158,
+        "score": 86.534,
         "coverage": 1,
         "metrics": [
           {
             "metric": "suppression-scan.source_per_kloc",
-            "value": 1.4925,
+            "value": 1.4728,
             "state": "ok",
             "scale": {
               "good": 0,
@@ -176,7 +176,7 @@
             },
             "weight": 0.3,
             "density": true,
-            "points": 21.045,
+            "points": 21.1632,
             "topContributors": [
               {
                 "file": "demo/App.vue",
@@ -255,7 +255,7 @@
               },
               {
                 "file": "demo/App.vue",
-                "value": 120
+                "value": 121
               },
               {
                 "file": "src/core/plugin.ts",
@@ -368,19 +368,19 @@
       {
         "dimension": "test-coverage",
         "status": "experimental",
-        "score": 22.8588,
+        "score": 22.7255,
         "coverage": 1,
         "metrics": [
           {
             "metric": "test-presence.test_to_source_ratio",
-            "value": 0.1507,
+            "value": 0.1487,
             "state": "ok",
             "scale": {
               "good": 0.5,
               "bad": 0.05
             },
             "weight": 0.3,
-            "points": 6.7133
+            "points": 6.58
           },
           {
             "metric": "coverage.line_pct",
@@ -551,23 +551,23 @@
     "metrics": {
       "suppression-scan.source_count": 1,
       "suppression-scan.test_count": 0,
-      "suppression-scan.source_per_kloc": 1.4925,
+      "suppression-scan.source_per_kloc": 1.4728,
       "suppression-scan.unreasoned_source_count": 0,
       "suppression-scan.unreasoned_ratio": 0,
       "file-shape.sloc_p95": 275,
       "file-shape.max_file_sloc": 275,
       "file-shape.god_file_count": 0,
-      "file-shape.source_file_count": 12,
-      "file-shape.source_sloc": 670,
+      "file-shape.source_file_count": 13,
+      "file-shape.source_sloc": 679,
       "source-mix.untyped_file_ratio": 0,
       "source-mix.untyped_sloc_ratio": 0,
       "source-mix.untyped_file_count": 0,
-      "source-mix.typed_file_count": 12,
+      "source-mix.typed_file_count": 13,
       "config-integrity.gap_ratio": 0.1111,
       "config-integrity.gap_count": 1,
       "ci-integrity.gap_ratio": 0,
       "ci-integrity.gap_count": 0,
-      "ci-integrity.workflow_count": 1,
+      "ci-integrity.workflow_count": 2,
       "oxlint.violations_per_kloc": 0,
       "oxlint.violations": 0,
       "oxlint.errors_per_kloc": 0,
@@ -577,14 +577,14 @@
       "tsc.type_errors_per_kloc": 0,
       "knip.unused_files": 0,
       "knip.unused_file_ratio": 0,
-      "knip.unused_export_ratio": 0.6471,
-      "knip.unused_exports": 11,
-      "knip.unused_dependencies": 1,
+      "knip.unused_export_ratio": 0.5556,
+      "knip.unused_exports": 10,
+      "knip.unused_dependencies": 0,
       "audit.critical": 0,
       "audit.high": 1,
       "audit.moderate": 0,
       "audit.low": 0,
-      "test-presence.test_to_source_ratio": 0.1507,
+      "test-presence.test_to_source_ratio": 0.1487,
       "test-presence.test_sloc": 101,
       "test-presence.test_file_count": 2,
       "coverage.line_pct": 17.82,
@@ -592,10 +592,10 @@
       "coverage.function_pct": 22.22,
       "circular.cycle_count": 0,
       "readme-contract.has_readme": 1,
-      "readme-contract.readme_words": 298,
+      "readme-contract.readme_words": 299,
       "comment-quality.marker_per_kloc": 0,
       "comment-quality.marker_count": 0,
-      "comment-quality.comment_density": 0.0718,
+      "comment-quality.comment_density": 0.073,
       "ui-token.color_cardinality": 13,
       "ui-token.spacing_cardinality": 18,
       "ui-token.inline_style_per_kloc": 0,
@@ -659,16 +659,6 @@
         "file": "src/vue/index.ts",
         "line": 1,
         "message": "`TOOL_DEFINITION` is exported but never imported",
-        "probe": "knip",
-        "dimension": "architecture",
-        "tier": 1
-      },
-      {
-        "rule": "unused-export",
-        "severity": "warning",
-        "file": "src/vue/index.ts",
-        "line": 1,
-        "message": "`executeMarkdown` is exported but never imported",
         "probe": "knip",
         "dimension": "architecture",
         "tier": 1
@@ -869,10 +859,10 @@
       "madge": "8.0.0"
     },
     "overall": {
-      "score": 83.1773,
+      "score": 83.3978,
       "scoredDimensions": 9,
       "comparable": false
     }
   },
-  "createdAt": "2026-10-17T23:44:13.567Z"
+  "createdAt": "2026-10-18T03:42:31.116Z"
 }
