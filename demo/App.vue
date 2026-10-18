@@ -67,7 +67,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import { plugin } from "../src/vue";
+import { plugin, executeMarkdown } from "../src/vue";
+import { isMarkdownArgs } from "./markdownArgs";
 import type { ToolResult, ToolSample, ToolPlugin } from "gui-chat-protocol/vue";
 
 // Plugin configuration - cast to base ToolPlugin for generic demo usage
@@ -96,18 +97,18 @@ const result = ref<ToolResult>({
 const loadSample = (sample: ToolSample) => {
   jsonInput.value = JSON.stringify(sample.args, null, 2);
   jsonError.value = "";
-  applyJson();
+  void applyJson();
 };
 
-const applyJson = () => {
+// Runs the plugin's own execute, as a host does, so View gets the result shape it reads (data.markdown).
+const applyJson = async () => {
   try {
-    const data = JSON.parse(jsonInput.value);
-    result.value = {
-      toolName: toolName.value,
-      message: "Data applied",
-      title: data.title || "",
-      jsonData: data,
-    };
+    const args: unknown = JSON.parse(jsonInput.value);
+    if (!isMarkdownArgs(args)) {
+      jsonError.value = "JSON must have string fields: title, markdown";
+      return;
+    }
+    result.value = { ...(await executeMarkdown(null, args)), toolName: toolName.value };
     jsonError.value = "";
     lastSentMessage.value = "";
   } catch (e) {
