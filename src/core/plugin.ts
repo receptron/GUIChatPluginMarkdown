@@ -1,19 +1,12 @@
 import type { ToolContext, ToolPluginCore } from "gui-chat-protocol";
 import type { MarkdownArgs, MarkdownToolData, MarkdownResult } from "./types";
-import {
-  isGeneratedImageResponse,
-  isSaveImagesResponse,
-  readBlankImageBase64,
-} from "./hostResponse";
+import { isGeneratedImageResponse, isSaveImagesResponse, readBlankImageBase64 } from "./hostResponse";
 import { TOOL_NAME, TOOL_DEFINITION } from "./definition";
 
 // context is nullable on purpose: hosts that run the plugin without client-side
 // state (MulmoClaude's server bridge) pass an empty or missing context, and
 // reading through it unguarded threw a TypeError instead of returning a result.
-export const presentDocument = async (
-  context: ToolContext | null | undefined,
-  args: MarkdownArgs,
-): Promise<MarkdownResult> => {
+export const presentDocument = async (context: ToolContext | null | undefined, args: MarkdownArgs): Promise<MarkdownResult> => {
   let { markdown } = args;
   const { title, filenameHint } = args;
   const app = context?.app;
@@ -34,9 +27,7 @@ export const presentDocument = async (
     const images: Record<string, string> = {};
 
     // Load blank image for aspect ratio reference
-    const blankImageBase64 = app.loadBlankImageBase64
-      ? readBlankImageBase64(await app.loadBlankImageBase64())
-      : "";
+    const blankImageBase64 = app.loadBlankImageBase64 ? readBlankImageBase64(await app.loadBlankImageBase64()) : "";
 
     // Generate images for each placeholder in parallel
     const imagePromises = matches.map(async (match, i) => {
@@ -44,11 +35,7 @@ export const presentDocument = async (
       const imageId = `image_${i}`;
 
       try {
-        const result = await app!.generateImageWithBackend!(
-          prompt,
-          blankImageBase64 ? [blankImageBase64] : [],
-          context,
-        );
+        const result = await app!.generateImageWithBackend!(prompt, blankImageBase64 ? [blankImageBase64] : [], context);
 
         if (isGeneratedImageResponse(result) && result.success && result.imageData) {
           images[imageId] = `data:image/png;base64,${result.imageData}`;
@@ -87,8 +74,7 @@ export const presentDocument = async (
       title,
       data: { markdown, filenameHint },
       uuid: docUuid,
-      instructions:
-        "Acknowledge that the document has been created and is displayed to the user.",
+      instructions: "Acknowledge that the document has been created and is displayed to the user.",
     };
   }
 
@@ -96,8 +82,7 @@ export const presentDocument = async (
     message: `Created markdown document: ${title}`,
     title,
     data: { markdown, filenameHint },
-    instructions:
-      "Acknowledge that the document has been created and is displayed to the user.",
+    instructions: "Acknowledge that the document has been created and is displayed to the user.",
   };
 };
 
@@ -105,8 +90,7 @@ export const pluginCore: ToolPluginCore<MarkdownToolData, unknown, MarkdownArgs>
   toolDefinition: TOOL_DEFINITION,
   execute: presentDocument,
   generatingMessage: "Creating document...",
-  waitingMessage:
-    "Tell the user that the document was created, will be presented to the user shortly.",
+  waitingMessage: "Tell the user that the document was created, will be presented to the user shortly.",
   isEnabled: () => true,
   backends: ["imageGen"],
 };

@@ -1,9 +1,6 @@
 <template>
   <div class="markdown-container">
-    <div
-      v-if="!selectedResult.data?.markdown"
-      class="min-h-full p-8 flex items-center justify-center"
-    >
+    <div v-if="!selectedResult.data?.markdown" class="min-h-full p-8 flex items-center justify-center">
       <div class="text-gray-500">No markdown content available</div>
     </div>
     <template v-else>
@@ -20,27 +17,14 @@
               </button>
             </div>
           </div>
-          <div
-            class="markdown-content prose prose-slate max-w-none"
-            v-html="renderedHtml"
-          ></div>
+          <div class="markdown-content prose prose-slate max-w-none" v-html="renderedHtml"></div>
         </div>
       </div>
 
       <details class="markdown-source">
         <summary>Edit Markdown Source</summary>
-        <textarea
-          v-model="editableMarkdown"
-          class="markdown-editor"
-          spellcheck="false"
-        ></textarea>
-        <button
-          @click="applyMarkdown"
-          class="apply-btn"
-          :disabled="!hasChanges"
-        >
-          Apply Changes
-        </button>
+        <textarea v-model="editableMarkdown" class="markdown-editor" spellcheck="false"></textarea>
+        <button @click="applyMarkdown" class="apply-btn" :disabled="!hasChanges">Apply Changes</button>
       </details>
     </template>
   </div>

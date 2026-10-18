@@ -7,18 +7,11 @@
 
 import { test, describe } from "node:test";
 import assert from "node:assert";
-import {
-  isGeneratedImageResponse,
-  isSaveImagesResponse,
-  readBlankImageBase64,
-} from "../src/core/hostResponse.js";
+import { isGeneratedImageResponse, isSaveImagesResponse, readBlankImageBase64 } from "../src/core/hostResponse.js";
 
 describe("isGeneratedImageResponse", () => {
   test("accepts a successful response carrying image data", () => {
-    assert.equal(
-      isGeneratedImageResponse({ success: true, imageData: "base64" }),
-      true,
-    );
+    assert.equal(isGeneratedImageResponse({ success: true, imageData: "base64" }), true);
   });
 
   test("accepts a failure response with no image data", () => {
@@ -31,21 +24,14 @@ describe("isGeneratedImageResponse", () => {
 
   test("rejects values that are not a response object", () => {
     [null, undefined, "ok", 7].forEach((value) => {
-      assert.equal(
-        isGeneratedImageResponse(value),
-        false,
-        `should reject ${JSON.stringify(value)}`,
-      );
+      assert.equal(isGeneratedImageResponse(value), false, `should reject ${JSON.stringify(value)}`);
     });
   });
 });
 
 describe("isSaveImagesResponse", () => {
   test("accepts a map of image id to url", () => {
-    assert.equal(
-      isSaveImagesResponse({ imageUrls: { image_0: "/a.png", image_1: "/b.png" } }),
-      true,
-    );
+    assert.equal(isSaveImagesResponse({ imageUrls: { image_0: "/a.png", image_1: "/b.png" } }), true);
   });
 
   test("accepts a response with no imageUrls key", () => {
@@ -58,11 +44,7 @@ describe("isSaveImagesResponse", () => {
 
   test("rejects values that are not a response object", () => {
     [null, undefined, "ok", 7].forEach((value) => {
-      assert.equal(
-        isSaveImagesResponse(value),
-        false,
-        `should reject ${JSON.stringify(value)}`,
-      );
+      assert.equal(isSaveImagesResponse(value), false, `should reject ${JSON.stringify(value)}`);
     });
   });
 });
