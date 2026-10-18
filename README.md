@@ -1,6 +1,7 @@
 # @gui-chat-plugin/markdown
 
 [![npm version](https://badge.fury.io/js/%40gui-chat-plugin%2Fmarkdown.svg)](https://www.npmjs.com/package/@gui-chat-plugin/markdown)
+[![scoria](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/receptron/GUIChatPluginMarkdown/badges/scoria.json)](https://github.com/receptron/GUIChatPluginMarkdown/actions/workflows/scoria.yml)
 
 Markdown document display plugin for GUI Chat applications. Create and display rich documents with markdown formatting and embedded images.
 
