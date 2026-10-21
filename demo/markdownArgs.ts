@@ -1,7 +1,6 @@
 import type { MarkdownArgs } from "../src/core/types";
 
-const isRecord = (value: unknown): value is Record<string, unknown> =>
-  typeof value === "object" && value !== null && !Array.isArray(value);
+const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === "object" && value !== null && !Array.isArray(value);
 
 export const isMarkdownArgs = (value: unknown): value is MarkdownArgs =>
   isRecord(value) &&

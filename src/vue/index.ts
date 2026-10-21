@@ -34,11 +34,7 @@ export const plugin: ToolPlugin<MarkdownToolData, unknown, MarkdownArgs> = {
 
 export type { MarkdownToolData, MarkdownArgs, MarkdownResult } from "../core/types";
 
-export {
-  TOOL_DEFINITION,
-  executeMarkdown,
-  pluginCore,
-} from "../core/plugin";
+export { TOOL_DEFINITION, executeMarkdown, pluginCore } from "../core/plugin";
 
 export { samples } from "../core/samples";
 
