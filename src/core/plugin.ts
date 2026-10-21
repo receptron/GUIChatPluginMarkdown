@@ -6,6 +6,10 @@ import {
   readBlankImageBase64,
 } from "./hostResponse";
 import { TOOL_NAME, TOOL_DEFINITION } from "./definition";
+import {
+  findImagePlaceholders,
+  replaceImagePlaceholders,
+} from "./imagePlaceholders";
 
 // context is nullable on purpose: hosts that run the plugin without client-side
 // state (MulmoClaude's server bridge) pass an empty or missing context, and
@@ -25,8 +29,7 @@ export const presentDocument = async (
 
   // Detect all image placeholders in the format: ![prompt](__too_be_replaced_image_path__)
   // Also handle variant with leading slash: ![prompt](/__too_be_replaced_image_path__)
-  const imageRegex = /!\[([^\]]+)\]\(\/?__too_be_replaced_image_path__\)/g;
-  const matches = [...markdown.matchAll(imageRegex)];
+  const matches = findImagePlaceholders(markdown);
 
   if (matches.length > 0 && app?.generateImageWithBackend && app?.saveImages) {
     // Generate UUID for this document
@@ -40,7 +43,7 @@ export const presentDocument = async (
 
     // Generate images for each placeholder in parallel
     const imagePromises = matches.map(async (match, i) => {
-      const prompt = `${match[1]}. Use the last image as the output dimension.`;
+      const prompt = `${match.prompt}. Use the last image as the output dimension.`;
       const imageId = `image_${i}`;
 
       try {
@@ -69,12 +72,12 @@ export const presentDocument = async (
           const imageUrls = data.imageUrls;
 
           // Replace placeholders with actual image URLs
-          let imageIndex = 0;
-          markdown = markdown.replace(imageRegex, (match, prompt) => {
-            const imageId = `image_${imageIndex}`;
-            const imageUrl = imageUrls[imageId];
-            imageIndex++;
-            return imageUrl ? `![${prompt}](${imageUrl})` : match;
+          const original = markdown;
+          markdown = replaceImagePlaceholders(original, matches, (placeholder, index) => {
+            const imageUrl = imageUrls[`image_${index}`];
+            return imageUrl
+              ? `![${placeholder.prompt}](${imageUrl})`
+              : original.slice(placeholder.start, placeholder.end);
           });
         }
       } catch (error) {
