@@ -1,18 +1,29 @@
 import { test, describe } from "node:test";
 import assert from "node:assert";
-import {
-  findImagePlaceholders,
-  replaceImagePlaceholders,
-} from "../src/core/imagePlaceholders.js";
+import { findImagePlaceholders, replaceImagePlaceholders } from "../src/core/imagePlaceholders.js";
 
 // The pattern the scanner replaced: correct, but quadratic, so only an oracle for small inputs.
-const PLACEHOLDER_PATTERN =
-  /!\[([^\]]+)\]\(\/?__too_be_replaced_image_path__\)/g;
+const PLACEHOLDER_PATTERN = /!\[([^\]]+)\]\(\/?__too_be_replaced_image_path__\)/g;
 
 const TOKENS = [
-  "!", "[", "]", "(", ")", "/", "\\", "a", " ", "\n", "![", "](", "]]", "[[",
-  "(__too_be_replaced_image_path__)", "(/__too_be_replaced_image_path__)",
-  "__too_be_replaced_image_path__", "(__too_be_replaced_image_path_)",
+  "!",
+  "[",
+  "]",
+  "(",
+  ")",
+  "/",
+  "\\",
+  "a",
+  " ",
+  "\n",
+  "![",
+  "](",
+  "]]",
+  "[[",
+  "(__too_be_replaced_image_path__)",
+  "(/__too_be_replaced_image_path__)",
+  "__too_be_replaced_image_path__",
+  "(__too_be_replaced_image_path_)",
 ];
 const GENERATED_DOCUMENTS = 5000;
 const MAX_TOKENS = 24;
@@ -28,9 +39,7 @@ const lcg = (seed: number) => {
 
 const generatedDocuments = (): string[] => {
   const next = lcg(SEED);
-  return Array.from({ length: GENERATED_DOCUMENTS }, () =>
-    Array.from({ length: next(MAX_TOKENS + 1) }, () => TOKENS[next(TOKENS.length)]).join(""),
-  );
+  return Array.from({ length: GENERATED_DOCUMENTS }, () => Array.from({ length: next(MAX_TOKENS + 1) }, () => TOKENS[next(TOKENS.length)]).join(""));
 };
 
 const patternMatches = (markdown: string) =>
@@ -52,15 +61,13 @@ describe("findImagePlaceholders", () => {
   });
 
   test("ignores an empty prompt, another path, and an ordinary image", () => {
-    ["![](__too_be_replaced_image_path__)", "![x](other.png)", "![x](__too_be_replaced_image_path__", "plain text", ""].forEach(
-      (markdown) => assert.deepEqual(findImagePlaceholders(markdown), []),
+    ["![](__too_be_replaced_image_path__)", "![x](other.png)", "![x](__too_be_replaced_image_path__", "plain text", ""].forEach((markdown) =>
+      assert.deepEqual(findImagePlaceholders(markdown), []),
     );
   });
 
   test("returns the pattern's matches on generated documents", () => {
-    generatedDocuments().forEach((markdown) =>
-      assert.deepEqual(findImagePlaceholders(markdown), patternMatches(markdown), JSON.stringify(markdown)),
-    );
+    generatedDocuments().forEach((markdown) => assert.deepEqual(findImagePlaceholders(markdown), patternMatches(markdown), JSON.stringify(markdown)));
   });
 
   test("stays fast on many '![' with no closing ']'", () => {

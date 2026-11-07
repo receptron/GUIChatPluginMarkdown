@@ -2,10 +2,7 @@ import type { ToolContext, ToolPluginCore } from "gui-chat-protocol";
 import type { MarkdownArgs, MarkdownToolData, MarkdownResult } from "./types";
 import { isGeneratedImageResponse, isSaveImagesResponse, readBlankImageBase64 } from "./hostResponse";
 import { TOOL_NAME, TOOL_DEFINITION } from "./definition";
-import {
-  findImagePlaceholders,
-  replaceImagePlaceholders,
-} from "./imagePlaceholders";
+import { findImagePlaceholders, replaceImagePlaceholders } from "./imagePlaceholders";
 
 // context is nullable on purpose: hosts that run the plugin without client-side
 // state (MulmoClaude's server bridge) pass an empty or missing context, and
@@ -62,9 +59,7 @@ export const presentDocument = async (context: ToolContext | null | undefined, a
           const original = markdown;
           markdown = replaceImagePlaceholders(original, matches, (placeholder, index) => {
             const imageUrl = imageUrls[`image_${index}`];
-            return imageUrl
-              ? `![${placeholder.prompt}](${imageUrl})`
-              : original.slice(placeholder.start, placeholder.end);
+            return imageUrl ? `![${placeholder.prompt}](${imageUrl})` : original.slice(placeholder.start, placeholder.end);
           });
         }
       } catch (error) {
