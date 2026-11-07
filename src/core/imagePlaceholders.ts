@@ -5,14 +5,9 @@ export interface ImagePlaceholder {
   prompt: string;
 }
 
-const PLACEHOLDER_TARGETS = [
-  "(__too_be_replaced_image_path__)",
-  "(/__too_be_replaced_image_path__)",
-];
+const PLACEHOLDER_TARGETS = ["(__too_be_replaced_image_path__)", "(/__too_be_replaced_image_path__)"];
 
-const targetLengthAt = (markdown: string, index: number): number =>
-  PLACEHOLDER_TARGETS.find((target) => markdown.startsWith(target, index))
-    ?.length ?? 0;
+const targetLengthAt = (markdown: string, index: number): number => PLACEHOLDER_TARGETS.find((target) => markdown.startsWith(target, index))?.length ?? 0;
 
 /**
  * The matches of /!\[([^\]]+)\]\(\/?__too_be_replaced_image_path__\)/g, left to right, in linear time.
@@ -26,8 +21,7 @@ export function findImagePlaceholders(markdown: string): ImagePlaceholder[] {
   let close = markdown.indexOf("]");
   while (close !== -1) {
     if (open !== -1 && open < from) open = markdown.indexOf("![", from);
-    const targetLength =
-      open !== -1 && open + 2 < close ? targetLengthAt(markdown, close + 1) : 0;
+    const targetLength = open !== -1 && open + 2 < close ? targetLengthAt(markdown, close + 1) : 0;
     if (targetLength > 0) {
       const end = close + 1 + targetLength;
       found.push({ start: open, end, prompt: markdown.slice(open + 2, close) });
