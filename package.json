@@ -38,7 +38,8 @@
     "format:check": "prettier --check \"{src,demo,tests}/**/*.{ts,tsx,vue,json,css}\" \"*.{ts,js,json}\""
   },
   "resolutions": {
-    "minimatch": "^10.2.4"
+    "minimatch": "^11.0.5",
+    "glob": "^14.0.4"
   },
   "dependencies": {
     "marked": "^18.1.1"
